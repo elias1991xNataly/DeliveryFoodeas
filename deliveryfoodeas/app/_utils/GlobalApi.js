@@ -1,30 +1,26 @@
-const { graphql, request } = require("graphql");
+import { request, gql } from "graphql-request";
 
 
 const MASTER_URL = process.env.NEXT_PUBLIC_BACKEND_API_URL;
-/**
- * Used to make Get Category Api Request
- * @returns 
- */
 
 const GetCategory = async () => {
-    const query = graphql`
+  const query = gql`
     query Categories {
-        categories(first: 50) {
-          id
-          name
-          slug
-          icon {
-            url
-          }
+      categories(first: 50) {
+        id
+        name
+        slug
+        icon {
+          url
         }
       }
-      `
+    }
+  `;
 
-    const result = await request(MASTER_URL, query);
-    return result;
+  const result = await request(MASTER_URL, query);
+  return result;
 }
 
 export default {
-    GetCategory
+  GetCategory
 };

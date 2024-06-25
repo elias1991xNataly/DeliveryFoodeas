@@ -6,11 +6,12 @@ import { ChevronDown, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
+
+
+
 export default function Home() {
 
-const getCategoryList=()=>{
-  GlobalApi.GetCategory
-}
+
 
   return (
     <div className="flex flex-col justify-center items-center align-center h-screen">
@@ -22,7 +23,8 @@ const getCategoryList=()=>{
         <LinkIcon></LinkIcon>
         <Link href="/about">ABOUT</Link>
       </div>
-      <CategoryList/>
+      <CategoryList />
+
 
     </div>
   );
