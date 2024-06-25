@@ -7,8 +7,10 @@ import {
   SignedOut,
   UserButton
 } from '@clerk/nextjs';
-
+import Header from "../app/_components/Header";
 const inter = Inter({ subsets: ["latin"] });
+import Provider from "../app/Provider";
+
 
 export const metadata = {
   title: "Create Next App",
@@ -21,14 +23,18 @@ export default function RootLayout({ children }) {
 
       <html lang="en">
         <body className={inter.className}>
-        <SignedOut>
-          <SignInButton />
-        </SignedOut>
-        <SignedIn>
-          <UserButton />
-        </SignedIn>
-          {children}
-          </body>
+
+          <SignedOut>
+            <SignInButton />
+          </SignedOut>
+
+
+          <SignedIn>
+
+          </SignedIn>
+
+          <Provider >{children}</Provider>
+        </body>
       </html>
     </ClerkProvider>
   );

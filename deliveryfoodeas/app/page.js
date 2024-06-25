@@ -1,10 +1,17 @@
-import { Button } from "@/components/ui/button";
-import { UserButton } from "@clerk/nextjs";
+
+import { Button } from "/components/ui/button";
+import GlobalApi from "./_utils/GlobalApi";
+import CategoryList from "./_components/CategoryList";
 import { ChevronDown, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 
 export default function Home() {
+
+const getCategoryList=()=>{
+  GlobalApi.GetCategory
+}
+
   return (
     <div className="flex flex-col justify-center items-center align-center h-screen">
       <p>HOLA Elias</p>
@@ -15,7 +22,8 @@ export default function Home() {
         <LinkIcon></LinkIcon>
         <Link href="/about">ABOUT</Link>
       </div>
-      <UserButton afterSignOutUrl="/"/>
+      <CategoryList/>
+
     </div>
   );
 }
