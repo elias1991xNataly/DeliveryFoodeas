@@ -1,14 +1,25 @@
 "use client";
 import Image from "next/image";
 import GlobalApi from "../_utils/GlobalApi";
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import { ArrowRightCircle } from "lucide-react";
+import Link from "next/link";
+import { useSearchParams } from "next/navigation";
 
 
 
 function CategoryList() {
 
-
+  const listRef = useRef(null);
   const [typesRestaurantList, setTypesRestaurantList] = useState([]);
+  const params = useSearchParams();
+const[selectedCategory,setSelectedCategory]=useState('all');
+
+
+  useEffect(() => {
+    setSelectedCategory(params.get('category'));
+  }, [params])
+
 
   useEffect(() => {
     getCategoryList();
@@ -24,26 +35,38 @@ function CategoryList() {
       setTypesRestaurantList(resp.categories)
     })
   };
-
+  const ScrollRightHandler = () => {
+    if (listRef.current) {
+      listRef.current.scrollBy({
+        left: 200,
+        behavior: 'smooth'
+      })
+    }
+  };
 
   return (
-    <div className="h-screen">
-      <div className="grid grid-cols-4 ">
+    <div className="relative mt-10 ">
+      <div className="flex gap-4 overflow-auto scrollbar-hide w-screen" ref={listRef}>
         {typesRestaurantList && typesRestaurantList.map((types, index) => {
           return (
-            <div className="flex" key={index}>
-              
-              <Image src={types.icon.url}
+            <Link href={'?category=' + types.slug} className={`flex flex-col items-center gap-2 border p-3 rounded-xl min-w-28 hover:border-red-500 hover:bg-orange-50 cursor-pointer group ${selectedCategory==types.slug&&'text-red-500 border-red-500 bg-orange-50'}`} key={index}>
+
+              <Image
+                src={types.icon.url}
                 alt={types.name}
-                width={100}
-                height={100}
+                width={80}
+                height={80}
+                className="group-hover:scale-125 transition-all duration-200"
               />
-            </div>
+              <h2 className=' text-sm font-medium group-hover:text-red-500'>{types.name}</h2>
+            </Link>
           )
         }
         )
         }
       </div>
+      <ArrowRightCircle onClick={() => ScrollRightHandler()} className="absolute right-10 top-48 bg-gray-500 rounded-full text-white h-8 w-8 cursor-pointer"
+      />
     </div>
   )
 }

@@ -14,15 +14,15 @@ export default function Home() {
 
 
   return (
-    <div className="flex flex-col justify-center items-center align-center h-screen">
-      <p>HOLA Elias</p>
+    <div className="flex flex-col flex-wrap justify-center items-start align-center w-screen">
+      {/* <p>HOLA Elias</p>
       <Button
       >Pulsar aquí</Button>
       <ChevronDown></ChevronDown>
       <div className="flex w-60 bg-gray-400 font-bold rounded-full border-2 items-center justify-center">
         <LinkIcon></LinkIcon>
         <Link href="/about">ABOUT</Link>
-      </div>
+      </div> */}
       <CategoryList />
 
 
