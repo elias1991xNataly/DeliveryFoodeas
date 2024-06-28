@@ -46,7 +46,7 @@ const[selectedCategory,setSelectedCategory]=useState('all');
 
   return (
     <div className="relative mt-10 ">
-      <div className="flex gap-4 overflow-auto scrollbar-hide w-screen" ref={listRef}>
+      <div className="flex gap-4 overflow-auto scrollbar-hide max-w-screen" ref={listRef}>
         {typesRestaurantList && typesRestaurantList.map((types, index) => {
           return (
             <Link href={'?category=' + types.slug} className={`flex flex-col items-center gap-2 border p-3 rounded-xl min-w-28 hover:border-red-500 hover:bg-orange-50 cursor-pointer group ${selectedCategory==types.slug&&'text-red-500 border-red-500 bg-orange-50'}`} key={index}>
@@ -56,7 +56,7 @@ const[selectedCategory,setSelectedCategory]=useState('all');
                 alt={types.name}
                 width={80}
                 height={80}
-                className="group-hover:scale-125 transition-all duration-200"
+                className="group-hover:scale-105 rounded-lg h-20 object-cover  transition-all duration-200"
               />
               <h2 className=' text-sm font-medium group-hover:text-red-500'>{types.name}</h2>
             </Link>
