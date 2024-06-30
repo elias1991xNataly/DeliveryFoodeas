@@ -1,5 +1,5 @@
 "use client";
-import { Search } from 'lucide-react';
+import { Search, ShoppingCart } from 'lucide-react';
 import Image from 'next/image';
 import React from 'react';
 import { Button } from "/components/ui/button";
@@ -23,22 +23,32 @@ const Header = () => {
                 <Search />
             </div>
 
-{isSignedIn?<UserButton/>:
+            {isSignedIn ? 
+            // <div className='flex gap-3 items-center'>
+            //     <div className='flex gap-2 items-center'>
 
-            <div className='flex gap-5'>
-                <SignInButton mode='modal'>
+            //         <ShoppingCart />
+            //         <label className='p-1 px-2 rounded-full bg-slate-200'></label>
+            //     </div>
+            //     <UserButton />
+            // </div> 
+            <UserButton/>
+            :
 
-                    <Button variant="outline" >Login</Button>
-                </SignInButton>
+                <div className='flex gap-5'>
+                    <SignInButton mode='modal'>
 
-                <SignUpButton mode='modal'>
+                        <Button variant="outline" >Login</Button>
+                    </SignInButton>
 
-                    <Button variant="own">Sign Up</Button>
-                </SignUpButton>
-            </div>
-             
-             }
-         
+                    <SignUpButton mode='modal'>
+
+                        <Button variant="own">Sign Up</Button>
+                    </SignUpButton>
+                </div>
+
+            }
+
         </div>
     )
 }

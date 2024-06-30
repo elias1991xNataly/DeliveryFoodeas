@@ -9,6 +9,8 @@ const BusinessItem = ({ business }) => {
             
 
             className='p-3 hover:border rounded-xl hover:border-red-500 cursor-pointer hover:bg-orange-50'>
+                <Link
+                href={'/restaurant/'+business.slug}>
             <Image src={business.banner?.url} alt={business.name}
                 width={500} height={500}
                 className=' rounded-xl  ' />
@@ -21,10 +23,12 @@ const BusinessItem = ({ business }) => {
                             width={14} height={14} />
                         <label className='text-gray-400 text-sm'>4.5</label>
                         <h2 className='text-gray-400 text-sm'>{business.restroType[0]}</h2>
+
                     </div>
                     <h2 className='text-red-500 text-sm'>{business.categories[0].name}</h2>
                 </div>
             </div>
+                </Link>
         </div>
     )
 }

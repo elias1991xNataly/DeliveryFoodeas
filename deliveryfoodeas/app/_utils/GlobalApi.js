@@ -33,6 +33,7 @@ const GetBusiness = async (category) => {
         name
       }
       id
+      slug
       name
       restroType
       workingHours
@@ -43,10 +44,10 @@ const GetBusiness = async (category) => {
   return result;
 }
 
-const GetBusinessDetail=async(businessSlug)=>{
-  const query=gql`
+const GetBusinessDetail = async (businessSlug) => {
+  const query = gql`
   query RestaurantDetail {
-    restaurant(where: {slug: "`+businessSlug+`"}) {
+    restaurant(where: {slug: "`+ businessSlug + `"}) {
       aboutUs
       address
       banner {
@@ -85,8 +86,32 @@ const GetBusinessDetail=async(businessSlug)=>{
   return result;
 }
 
+
+
+const AddToCart = async (data) => {
+  const query = gql`
+  mutation AddToCart {
+    createUserCart(
+      data: {email: "`+ data.email + `", 
+      price: ` + data.price + `, 
+      productDescription: "` + data.description + `", 
+      productName: "`+ data.name + `", 
+      productimage: "`+ data.productImage + `"}
+    ) {
+      id
+    }
+    publishManyUserCarts(to: PUBLISHED) {
+      count
+    }
+  }
+  `
+  const result = await request(MASTER_URL, query);
+  return result;
+
+}
 export default {
   GetCategory,
   GetBusiness,
-  GetBusinessDetail
+  GetBusinessDetail,
+  AddToCart
 };
