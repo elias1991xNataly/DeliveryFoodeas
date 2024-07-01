@@ -6,7 +6,7 @@ import { CartUpdateContext } from "./_context/CartUpdateContext"
 
 
 const Provider = ({ children }) => {
-    const [updateCart, setUpdateCart] = useState();
+    const [updateCart, setUpdateCart] = useState(0);
 
 
     return (
@@ -15,7 +15,7 @@ const Provider = ({ children }) => {
             <div className='relative'>
                 <Header />
                 <Toaster />
-                <div className='md:px-10'>
+                <div className='md:px-10 mt-3'>
 
                     {children}
                 </div>

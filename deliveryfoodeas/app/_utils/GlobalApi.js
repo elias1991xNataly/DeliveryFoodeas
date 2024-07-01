@@ -96,7 +96,8 @@ const AddToCart = async (data) => {
       price: ` + data.price + `, 
       productDescription: "` + data.description + `", 
       productName: "`+ data.name + `", 
-      productimage: "`+ data.productImage + `"}
+      productImage: "`+ data.productImage + `",
+    restaurant:{connect:{slug:"`+ data.restaurantSlug + `"}}}
     ) {
       id
     }
@@ -109,9 +110,34 @@ const AddToCart = async (data) => {
   return result;
 
 }
+
+const GetUserCart = async (userEmail) => {
+
+  const query = gql`query GetUserCart {
+    userCarts(where: {email: "`+ userEmail + `"}) {
+      id
+      price
+      productDescription
+      productImage
+      productName
+      restaurant {
+        name
+        banner {
+          url
+        }
+        slug
+      }
+    }
+  }
+  `
+
+  const result = await request(MASTER_URL, query);
+  return result;
+}
 export default {
   GetCategory,
   GetBusiness,
   GetBusinessDetail,
-  AddToCart
+  AddToCart,
+  GetUserCart
 };

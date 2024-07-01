@@ -38,13 +38,16 @@ const MenuSection = ({ restaurant }) => {
       description: item?.description,
       
       productImage: item?.productImage?.url,
-      price: item?.price
+      price: item?.price,
+      restaurantSlug:restaurant.slug
     }
 
     GlobalApi.AddToCart(data).then(resp => {
       console.log(resp);
-      // setUpdateCart(!updateCart);
-      toast('Added to Cart')
+
+      console.log(resp.publishManyUserCarts.count);
+      setUpdateCart(!updateCart);
+      toast('Added to Cart');
 
     }, (error) => {
       console.log(error)
