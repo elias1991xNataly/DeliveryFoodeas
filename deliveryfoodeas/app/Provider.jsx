@@ -1,15 +1,26 @@
-import React from 'react';
+"use client";
+import React, { useState } from 'react';
 import Header from "../app/_components/Header";
+import { Toaster } from "/components/ui/sonner";
+import { CartUpdateContext } from "./_context/CartUpdateContext"
+
 
 const Provider = ({ children }) => {
-    return (
-        <div className='relative'>
-            <Header/>
-            <div className='md:px-10'>
+    const [updateCart, setUpdateCart] = useState();
 
-            {children}
+
+    return (
+        <CartUpdateContext.Provider value={{updateCart, setUpdateCart}}>
+
+            <div className='relative'>
+                <Header />
+                <Toaster />
+                <div className='md:px-10'>
+
+                    {children}
+                </div>
             </div>
-        </div>
+        </CartUpdateContext.Provider>
     )
 }
 

@@ -3,13 +3,14 @@ import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 
 const Intro = ({ restaurant }) => {
+    console.log(restaurant)
     return (
         <div>
-            {restaurant ? <div>
+            {restaurant?.banner?.url ? <div>
                 <Image src={restaurant?.banner?.url}
                     width={1000}
                     height={300}
-                    className='w-full h-auto object-cover rounded-xl'
+                    className='w-full h-[300px] object-cover rounded-xl'
                     alt='banner' />
 
             </div>
@@ -24,7 +25,7 @@ const Intro = ({ restaurant }) => {
                 <label className='text-gray-500'>4.5 (56)</label>
             </div>
             <h2 className='text-gray-500 mt-2 flex gap-2 items-center'>
-                <MapPin/>
+                <MapPin />
                 {restaurant.address}
             </h2>
         </div>

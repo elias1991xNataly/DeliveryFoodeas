@@ -1,34 +1,57 @@
 "use client";
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Button } from "../../../../components/ui/button";
 import Image from 'next/image';
 import { SquarePlus } from 'lucide-react';
 import { useUser } from '@clerk/nextjs';
+import GlobalApi from '../../../_utils/GlobalApi';
+import { toast } from "sonner";
+import { CartUpdateContext } from '../../../_context/CartUpdateContext';
 
 
 const MenuSection = ({ restaurant }) => {
-
+  const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
 
 
   const [menuItemList, setMenuItemList] = useState([]);
   const { user } = useUser();
+
+  useEffect(() => {
+
+    restaurant?.menu && FilterMenu(restaurant?.menu[0]?.category)
+
+  }, [restaurant])
+
   const FilterMenu = (category) => {
     const result = restaurant?.menu?.filter((item) => item.category == category)
     setMenuItemList(result[0])
   }
 
 
+
   const addToCartHandler = (item) => {
+
+    toast('Adding to Cart')
     const data = {
       email: user?.primaryEmailAddress?.emailAddress,
       name: item?.name,
       description: item?.description,
-      productImage: item?.productImage.url,
+      
+      productImage: item?.productImage?.url,
       price: item?.price
     }
-    console.log(data);
-  }
-    ;
+
+    GlobalApi.AddToCart(data).then(resp => {
+      console.log(resp);
+      // setUpdateCart(!updateCart);
+      toast('Added to Cart')
+
+    }, (error) => {
+      console.log(error)
+      toast('Error while adding to the cart')
+    })
+  };
+
   return (
     <div>
       <div className='grid grid-cols-4 mt-2'>
@@ -43,6 +66,7 @@ const MenuSection = ({ restaurant }) => {
                 >
                   {item.category}
                 </Button>
+
               </div>
             )
           })}
