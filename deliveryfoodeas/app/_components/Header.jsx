@@ -6,6 +6,13 @@ import { Button } from "/components/ui/button";
 import { SignInButton, SignUpButton, UserButton, useUser } from '@clerk/nextjs';
 import { CartUpdateContext } from '../_context/CartUpdateContext';
 import GlobalApi from '../_utils/GlobalApi';
+import {
+    Popover,
+    PopoverContent,
+    PopoverTrigger,
+} from "/components/ui/popover";
+import Cart from "./Cart";
+
 
 
 const Header = (item) => {
@@ -25,7 +32,7 @@ const Header = (item) => {
             setCart(resp?.userCarts)
         })
     }
-    
+
 
         ;
     return (
@@ -43,13 +50,22 @@ const Header = (item) => {
 
             {isSignedIn ?
                 <div className='flex gap-3 items-center'>
-                    <div className='flex gap-2 items-center'>
 
-                        <ShoppingCart />
-                        <label className='p-1 px-3 rounded-full bg-slate-200'>
-                            {cart?.length}
-                        </label>
-                    </div>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <div className='flex gap-2 items-center cursor-pointer'>
+
+                                <ShoppingCart />
+                                <label className='p-1 px-3 rounded-full bg-slate-200'>
+                                    {cart?.length}
+                                </label>
+                            </div>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-full">
+                            <Cart cart={cart}/>
+                        </PopoverContent>
+                    </Popover>
+
                     <UserButton />
                 </div>
 
