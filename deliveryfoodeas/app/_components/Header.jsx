@@ -19,7 +19,7 @@ const Header = (item) => {
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
     const { user, isSignedIn } = useUser();
     const [cart, setCart] = useState([]);
-
+    setUpdateCart(true);
     useEffect(() => {
         console.log("Execute me");
         user && GetUserCart();
@@ -32,6 +32,7 @@ const Header = (item) => {
             setCart(resp?.userCarts)
         })
     }
+
 
 
         ;
@@ -62,7 +63,7 @@ const Header = (item) => {
                             </div>
                         </PopoverTrigger>
                         <PopoverContent className="w-full">
-                            <Cart cart={cart}/>
+                            <Cart cart={cart} />
                         </PopoverContent>
                     </Popover>
 

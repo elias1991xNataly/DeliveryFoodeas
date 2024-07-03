@@ -1,16 +1,34 @@
 import { X } from 'lucide-react';
 import Image from 'next/image';
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button } from '../../components/ui/button';
+import GlobalApi from '../_utils/GlobalApi';
+import { CartUpdateContext } from '../_context/CartUpdateContext';
+import { toast } from 'sonner';
 
-const Cart = ({ cart }) => {
 
-    const CaculateCartAmount=()=>{
-        let total=0;
-        cart.forEach((item)=>{
-            total=total+item.price;
+function Cart({ cart }) {
+    const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
+    const CaculateCartAmount = () => {
+        let total = 0;
+        cart.forEach((item) => {
+            total = total + item.price;
         })
         return total.toFixed(2);
+    }
+    setUpdateCart(true)
+    const RemoveItemFromCart = (id) => {
+        setUpdateCart(true)
+        GlobalApi.DisconnectRestroFromUserCartItem(id).then(resp => {
+            if (resp) {
+                GlobalApi.DeleteItemFromCart(id).then(resp => {
+                    console.log("AQUI TOY");
+                    console.log(resp);
+                    toast('Item Removed!');
+                    setUpdateCart(!updateCart);
+                })
+            }
+        })
     }
     return (
         <div className='text-lg font-bold'>
@@ -32,7 +50,8 @@ const Cart = ({ cart }) => {
                             <h2 className='text-sm'>{item?.productName}</h2>
                         </div>
                         <h2 className='font-bold flex gap-2'>${item.price}
-                        <X className='h-4 w-4 text-red-500'/>
+                            <X className='h-4 w-4 text-red-500 cursor-pointer'
+                                onClick={() => RemoveItemFromCart(item.id)} />
                         </h2>
                     </div>
                 ))}
