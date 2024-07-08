@@ -37,7 +37,7 @@ const GetBusiness = async (category) => {
       name
       restroType
       workingHours
-      review {
+      reviews {
         star
       }
     }
@@ -59,6 +59,9 @@ const GetBusinessDetail = async (businessSlug) => {
       }
       categories {
         name
+      }
+      reviews {
+        star
       }
       id
       name

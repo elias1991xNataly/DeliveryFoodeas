@@ -8,7 +8,7 @@ const BusinessItem = ({ business }) => {
     const CalculateRating = () => {
         let total = 0;
         let count = 0;
-        business?.review?.forEach(item => {
+        business?.reviews?.forEach(item => {
             total = total + item.star;
             count++;
         })
