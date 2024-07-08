@@ -37,7 +37,11 @@ const GetBusiness = async (category) => {
       name
       restroType
       workingHours
+      review {
+        star
+      }
     }
+      
   }
   `
   const result = await request(MASTER_URL, query);
@@ -152,10 +156,10 @@ const DisconnectRestroFromUserCartItem = async (id) => {
 }
 
 
-const DeleteItemFromCart = async(id) => {
+const DeleteItemFromCart = async (id) => {
   const query = gql`
   mutation DeleteCartItem {
-    deleteUserCart(where: {id: "`+id+`"}) {
+    deleteUserCart(where: {id: "`+ id + `"}) {
       id
     }
   }
@@ -164,6 +168,48 @@ const DeleteItemFromCart = async(id) => {
   return result;
 }
 
+
+const AddNewReview = async (data) => {
+  const query = gql`
+  mutation AddNewReview {
+    createReview(
+      data: {email: "`+ data.email + `", 
+        profileImage: "`+ data.profileImage + `", 
+        reviewText: "`+ data.reviewText + `", 
+        star: `+ data.star + `, 
+        userName: "`+ data.userName + `", 
+        restaurant: {connect: {slug: "`+ data.RestroSlug + `"}}}
+    ) {
+      id
+    }
+    publishManyReviews(to: PUBLISHED) {
+      count
+    }
+  }
+  `
+  const result = await request(MASTER_URL, query);
+  return result;
+}
+
+
+
+const getRestaurantReviews = async (slug) => {
+  const query = gql`query RestaurantReviews {
+  reviews(where: {restaurant: {slug: "`+ slug + `"}},orderBy:publishedAt_DESC) {
+    email
+    id
+    profileImage
+    publishedAt
+    userName
+    star
+    reviewText
+  }
+}
+`
+  const result = await request(MASTER_URL, query);
+  return result;
+
+}
 export default {
   GetCategory,
   GetBusiness,
@@ -171,5 +217,7 @@ export default {
   AddToCart,
   GetUserCart,
   DisconnectRestroFromUserCartItem,
-  DeleteItemFromCart 
+  DeleteItemFromCart,
+  AddNewReview,
+  getRestaurantReviews
 };

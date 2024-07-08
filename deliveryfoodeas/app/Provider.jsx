@@ -2,7 +2,9 @@
 import React, { useState } from 'react';
 import Header from "../app/_components/Header";
 import { Toaster } from "/components/ui/sonner";
-import { CartUpdateContext } from "./_context/CartUpdateContext"
+import { CartUpdateContext } from "./_context/CartUpdateContext";
+
+import '@smastrom/react-rating/style.css';
 
 
 const Provider = ({ children }) => {
@@ -15,7 +17,7 @@ const Provider = ({ children }) => {
             <div className='relative'>
                 <Header />
                 <Toaster />
-                <div className='md:px-10 mt-3'>
+                <div className='md:px-10 mt-3 mb-20'>
 
                     {children}
                 </div>

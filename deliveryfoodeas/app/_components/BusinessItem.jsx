@@ -4,31 +4,43 @@ import React from 'react';
 
 
 const BusinessItem = ({ business }) => {
+
+    const CalculateRating = () => {
+        let total = 0;
+        let count = 0;
+        business?.review?.forEach(item => {
+            total = total + item.star;
+            count++;
+        })
+        const result = total / count;
+        return result ? result.toFixed(1) : 5;
+    }
+
     return (
         <div
-            
+
 
             className='p-3 hover:border rounded-xl hover:border-red-500 cursor-pointer hover:bg-orange-50'>
-                <Link
-                href={'/restaurant/'+business.slug}>
-            <Image src={business.banner?.url} alt={business.name}
-                width={500} height={500}
-                className=' rounded-xl  ' />
-            <div className='mt-2'>
-                <h2 className='font-bold text-lg'>{business.name}</h2>
-                <div className='flex justify-between items-center'>
+            <Link
+                href={'/restaurant/' + business.slug}>
+                <Image src={business.banner?.url} alt={business.name}
+                    width={500} height={500}
+                    className=' rounded-xl  ' />
+                <div className='mt-2'>
+                    <h2 className='font-bold text-lg'>{business.name}</h2>
+                    <div className='flex justify-between items-center'>
 
-                    <div className='flex gap-2 items-center'>
-                        <Image src="/star.png" alt='star'
-                            width={14} height={14} />
-                        <label className='text-gray-400 text-sm'>4.5</label>
-                        <h2 className='text-gray-400 text-sm'>{business.restroType[0]}</h2>
+                        <div className='flex gap-2 items-center'>
+                            <Image src="/star.png" alt='star'
+                                width={14} height={14} />
+                            <label className='text-gray-400 text-sm'>{CalculateRating()}</label>
+                            <h2 className='text-gray-400 text-sm'>{business.restroType[0]}</h2>
 
+                        </div>
+                        <h2 className='text-red-500 text-sm'>{business.categories[0].name}</h2>
                     </div>
-                    <h2 className='text-red-500 text-sm'>{business.categories[0].name}</h2>
                 </div>
-            </div>
-                </Link>
+            </Link>
         </div>
     )
 }

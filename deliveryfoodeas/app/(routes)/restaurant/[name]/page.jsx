@@ -14,7 +14,7 @@ useEffect(()=>{
 },[])
 const GetRestaurantDetail=(restroSlug)=>{
   GlobalApi.GetBusinessDetail(restroSlug).then(resp=>{
-    console.log(resp)
+
     setRestaurant(resp.restaurant);
   })
 }

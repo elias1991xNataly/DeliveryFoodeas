@@ -19,16 +19,16 @@ const Header = (item) => {
     const { updateCart, setUpdateCart } = useContext(CartUpdateContext);
     const { user, isSignedIn } = useUser();
     const [cart, setCart] = useState([]);
-    setUpdateCart(true);
     useEffect(() => {
-        console.log("Execute me");
+        setUpdateCart(true);
+
         user && GetUserCart();
     }, [updateCart && user]);
 
     const GetUserCart = () => {
         GlobalApi.GetUserCart(user?.primaryEmailAddress.emailAddress).then(resp => {
-            console.log(resp);
-            console.log(resp?.userCarts);
+
+
             setCart(resp?.userCarts)
         })
     }

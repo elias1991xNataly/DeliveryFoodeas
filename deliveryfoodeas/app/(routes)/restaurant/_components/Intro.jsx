@@ -3,7 +3,7 @@ import Image from 'next/image';
 import { MapPin } from 'lucide-react';
 
 const Intro = ({ restaurant }) => {
-    console.log(restaurant)
+
     return (
         <div>
             {restaurant?.banner?.url ? <div>
