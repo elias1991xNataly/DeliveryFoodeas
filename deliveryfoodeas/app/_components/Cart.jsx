@@ -5,6 +5,7 @@ import { Button } from '../../components/ui/button';
 import GlobalApi from '../_utils/GlobalApi';
 import { CartUpdateContext } from '../_context/CartUpdateContext';
 import { toast } from 'sonner';
+import Link from 'next/link';
 
 
 function Cart({ cart }) {
@@ -55,7 +56,9 @@ function Cart({ cart }) {
                         </h2>
                     </div>
                 ))}
-                <Button>Checkout ${CaculateCartAmount()}</Button>
+                <Link href={'/checkout?restaurant='+cart[0]?.restaurant?.name}>
+                    <Button>Checkout ${CaculateCartAmount()}</Button>
+                </Link>
             </div>
         </div>
     )

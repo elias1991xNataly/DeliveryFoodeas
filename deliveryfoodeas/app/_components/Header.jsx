@@ -12,6 +12,7 @@ import {
     PopoverTrigger,
 } from "/components/ui/popover";
 import Cart from "./Cart";
+import Link from 'next/link';
 
 
 
@@ -38,12 +39,14 @@ const Header = (item) => {
         ;
     return (
         <div className='flex justify-between items-center p-6 md:px-20 shadow-md'>
+            <Link href={'/'}>
             <Image
                 alt='logo'
                 width={200}
                 height={200}
                 src="/Lifestyle_Food-Logo.wine.svg"
             />
+            </Link>
             <div className='hidden md:flex border p-2 rounded-lg bg-gray-200 w-96'>
                 <input type='text' className='bg-transparent w-full outline-none' />
                 <Search />
