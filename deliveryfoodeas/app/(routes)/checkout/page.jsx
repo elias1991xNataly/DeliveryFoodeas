@@ -8,6 +8,10 @@ import { useUser } from '@clerk/nextjs';
 import GlobalApi from "../../_utils/GlobalApi";
 import { Loader } from 'lucide-react';
 import { toast } from 'sonner';
+import { PayPalButtons } from "@paypal/react-paypal-js";
+import { useRouter } from 'next/navigation';
+
+
 
 const Checkout = () => {
   const [username, setUsername] = useState();
@@ -23,6 +27,7 @@ const Checkout = () => {
   const [taxAmount, setTaxAmount] = useState(5);
   const [total, setTotal] = useState(0);
   const [loading, setLoading] = useState(false);
+  const router = useRouter();
 
   const params = useSearchParams();
   useEffect(() => {
@@ -70,8 +75,8 @@ const Checkout = () => {
             setLoading(false)
             toast('Order Created Successfully!')
             setUpdateCart(!updateCart)
-
-          },(error)=>{
+            router.replace('/confirmation');
+          }, (error) => {
             setLoading(false)
           }
           )
@@ -113,9 +118,28 @@ const Checkout = () => {
             <hr></hr>
             <h2 className='font-bold flex justify-between'>Total :<span>{total.toFixed(2)} €</span> </h2>
             {/* <Button onClick={() => onApprove({ paymentId: 123 })}>Pagar</Button> */}
-            <Button onClick={() => addToOrder()}>
+            {/* <Button onClick={() => addToOrder()}>
               {loading ? <Loader className='animate-spin' /> : 'Make Payment'}
-            </Button>
+            </Button> */}
+            {total > 5 && <PayPalButtons
+              disabled={!(username && email && address && zip) || loading}
+              style={{ layout: "horizontal" }}
+              onApprove={() => addToOrder()}
+              createOrder={(data, action) => {
+                return action.order.create({
+                  purchase_units: [
+                    {
+                      amount: {
+                        value: total.toFixed(2),
+                        currency_code: 'EUR'
+
+                      }
+                    }
+                  ]
+
+
+                })
+              }} />}
           </div>
 
         </div>

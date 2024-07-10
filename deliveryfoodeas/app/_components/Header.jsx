@@ -45,6 +45,7 @@ const Header = (item) => {
                 width={200}
                 height={200}
                 src="/Lifestyle_Food-Logo.wine.svg"
+                className='h-auto'
             />
             </Link>
             <div className='hidden md:flex border p-2 rounded-lg bg-gray-200 w-96'>

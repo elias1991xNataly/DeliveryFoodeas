@@ -56,8 +56,8 @@ function Cart({ cart }) {
                         </h2>
                     </div>
                 ))}
-                <Link href={'/checkout?restaurant='+cart[0]?.restaurant?.name}>
-                    <Button>Checkout ${CaculateCartAmount()}</Button>
+                <Link className='w-full' href={'/checkout?restaurant='+cart[0]?.restaurant?.name}>
+                    <Button className='w-full'>Checkout ${CaculateCartAmount()}</Button>
                 </Link>
             </div>
         </div>
