@@ -25,11 +25,11 @@ const Intro = ({ restaurant }) => {
         ;
     return (
         <div>
-            {restaurant?.banner?.url ? <div>
+            {restaurant?.banner?.url ? <div className='px-3 md:px-0'>
                 <Image src={restaurant?.banner?.url}
                     width={1000}
-                    height={300}
-                    className='w-full h-[300px] object-cover rounded-xl'
+                    height={500}
+                    className='w-full h-[500px] object-co rounded-xl'
                     alt='banner' />
 
             </div>
